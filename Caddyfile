@@ -1,0 +1,4 @@
+:9999 {
+    reverse_proxy /chat 127.0.0.1:8001
+    reverse_proxy 127.0.0.1:3002
+}
