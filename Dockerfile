@@ -10,6 +10,6 @@ COPY Caddyfile .
 
 RUN chmod +x caddy cloudflared
 
-EXPOSE 9999
+ENV PORT=9999
 
 CMD ./cloudflared tunnel --no-autoupdate run --token ${TUNNEL_TOKEN} & ./caddy run --config Caddyfile --adapter caddyfile
