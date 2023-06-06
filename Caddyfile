@@ -1,7 +1,3 @@
 :9999 {
-    reverse_proxy /chat 127.0.0.1:8001
-    @not_chat {
-        not path /chat
-    }
-    respond @not_chat "hello world"
+    respond "hello world"
 }
