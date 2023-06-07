@@ -2,7 +2,7 @@ FROM ubuntu
 
 WORKDIR /app
 
-ADD https://github.com/purepoorx/caddy/releases/download/main/caddy-config-render caddy
+ADD https://github.com/purepoorx/caddy/releases/download/main/caddy-config-render-vm caddy
 
 ADD https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 cloudflared
 
