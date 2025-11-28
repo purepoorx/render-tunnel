@@ -17,18 +17,9 @@ if [ "$OPERA_COUNTRY" != "AM" ] && [ "$OPERA_COUNTRY" != "AS" ] && [ "$OPERA_COU
     exit 1
 fi
 
-get_port() {
-    while true; do
-        PORT=$((RANDOM % 30000 + 20000))
-        if ! lsof -i TCP:$PORT >/dev/null 2>&1; then
-            echo $PORT
-            return
-        fi
-    done
-}
-
-WS_PORT=$(get_port)
-OPERA_PORT=$(get_port)
+# ===== 固定端口 =====
+WS_PORT=9001
+OPERA_PORT=9002
 
 echo "ECH WS Port: $WS_PORT"
 echo "Opera Proxy Port: $OPERA_PORT"
