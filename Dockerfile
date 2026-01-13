@@ -16,16 +16,16 @@ RUN apt update && apt install -y \
 # ech-server / opera / cloudflared
 RUN ARCH=$(uname -m) && \
     if [ "$ARCH" = "x86_64" ]; then \
-        curl -L https://github.com/purepoorx/render-tunnel/releases/download/test/ech-tunnel-linux-amd64 -o ech-server; \
+        curl -L https://github.com/purepoorx/render-tunnel/releases/download/test/x-tunnel-linux-amd64 -o x-server; \
         curl -L https://github.com/Snawoot/opera-proxy/releases/latest/download/opera-proxy.linux-amd64 -o opera; \
         curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -o cloudflared; \
     elif [ "$ARCH" = "aarch64" ]; then \
-        curl -L https://github.com/purepoorx/render-tunnel/releases/download/test/ech-tunnel-linux-arm64 -o ech-server; \
+        curl -L https://github.com/purepoorx/render-tunnel/releases/download/test/x-tunnel-linux-arm64 -o x-server; \
         curl -L https://github.com/Snawoot/opera-proxy/releases/latest/download/opera-proxy.linux-arm64 -o opera; \
         curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64 -o cloudflared; \
     else \
         echo "Unsupported architecture: $ARCH"; exit 1; \
-    fi && chmod +x ech-server opera cloudflared
+    fi && chmod +x x-server opera cloudflared
 
 # ===== Caddy =====
 ADD https://github.com/purepoorx/caddy/releases/download/main/caddy-config-render caddy
