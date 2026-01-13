@@ -4,7 +4,7 @@ echo "=== Starting merged container ==="
 # ===== Environment Variables =====
 OPERA_PROXY=${OPERA_PROXY:-0}
 OPERA_COUNTRY=${OPERA_COUNTRY:-AM}
-ECH_TOKEN=${ECH_TOKEN:-""}
+X_TOKEN=${X_TOKEN:-""}
 TUNNEL_TOKEN=${TUNNEL_TOKEN:-""}
 
 if [ -z "$TUNNEL_TOKEN" ]; then
@@ -21,7 +21,7 @@ fi
 WS_PORT=9001
 OPERA_PORT=9002
 
-echo "ECH WS Port: $WS_PORT"
+echo "X WS Port: $WS_PORT"
 echo "Opera Proxy Port: $OPERA_PORT"
 
 # ===== Generate Supervisor Config =====
@@ -31,8 +31,8 @@ command=/app/opera -country ${OPERA_COUNTRY} -socks-mode -bind-address 127.0.0.1
 autostart=$( [ "$OPERA_PROXY" = "1" ] && echo true || echo false )
 autorestart=true
 
-[program:ech]
-command=/app/ech-server -l ws://127.0.0.1:${WS_PORT} $( [ -n "$ECH_TOKEN" ] && echo -token $ECH_TOKEN ) $( [ "$OPERA_PROXY" = "1" ] && echo "-f socks5://127.0.0.1:${OPERA_PORT}" )
+[program:x]
+command=/app/x-server -l ws://127.0.0.1:${WS_PORT} $( [ -n "$X_TOKEN" ] && echo -token $X_TOKEN ) $( [ "$OPERA_PROXY" = "1" ] && echo "-f socks5://127.0.0.1:${OPERA_PORT}" )
 autostart=true
 autorestart=true
 
