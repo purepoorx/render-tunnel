@@ -2,8 +2,6 @@
 echo "=== Starting merged container ==="
 
 # ===== Environment Variables =====
-OPERA_PROXY=${OPERA_PROXY:-0}
-OPERA_COUNTRY=${OPERA_COUNTRY:-AM}
 X_TOKEN=${X_TOKEN:-""}
 TUNNEL_TOKEN=${TUNNEL_TOKEN:-""}
 
@@ -12,27 +10,15 @@ if [ -z "$TUNNEL_TOKEN" ]; then
     exit 1
 fi
 
-if [ "$OPERA_COUNTRY" != "AM" ] && [ "$OPERA_COUNTRY" != "AS" ] && [ "$OPERA_COUNTRY" != "EU" ]; then
-    echo "❌ ERROR: OPERA_COUNTRY 必须是 AM, AS, 或 EU"
-    exit 1
-fi
-
 # ===== 固定端口 =====
 WS_PORT=9001
-OPERA_PORT=9002
 
 echo "X WS Port: $WS_PORT"
-echo "Opera Proxy Port: $OPERA_PORT"
 
 # ===== Generate Supervisor Config =====
 cat <<EOF >/etc/supervisor/conf.d/services.conf
-[program:opera]
-command=/app/opera -country ${OPERA_COUNTRY} -socks-mode -bind-address 127.0.0.1:${OPERA_PORT}
-autostart=$( [ "$OPERA_PROXY" = "1" ] && echo true || echo false )
-autorestart=true
-
 [program:x]
-command=/app/x-server -l ws://127.0.0.1:${WS_PORT} $( [ -n "$X_TOKEN" ] && echo -token $X_TOKEN ) $( [ "$OPERA_PROXY" = "1" ] && echo "-f socks5://127.0.0.1:${OPERA_PORT}" )
+command=/app/x-server -l ws://127.0.0.1:${WS_PORT} $( [ -n "$X_TOKEN" ] && echo -token $X_TOKEN )
 autostart=true
 autorestart=true
 
