@@ -18,7 +18,7 @@ echo "X WS Port: $WS_PORT"
 # ===== Generate Supervisor Config =====
 cat <<EOF >/etc/supervisor/conf.d/services.conf
 [program:x]
-command=/app/x-server -l ws://127.0.0.1:${WS_PORT} $( [ -n "$X_TOKEN" ] && echo -token $X_TOKEN )
+command=/app/x-server server -l ws://127.0.0.1:${WS_PORT} $( [ -n "$X_TOKEN" ] && echo -token $X_TOKEN )
 autostart=true
 autorestart=true
 
